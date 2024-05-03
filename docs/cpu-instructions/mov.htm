@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU Instructions</title>
+    <link rel="stylesheet" href="../common.css">
+</head>
+<body>
+    <header class="dont-embed">
+        <div>
+            <h1>FPGA-CPU</h1>
+            <h2>CPU Instructions</h2>
+        </div>
+        <div class="navbar">
+            <a href="cpu-instructions.html">CPU Instructions</a>
+        </div>
+    </header>
+    <main class="instruction-description">
+        <h1 class="h-center">MOV <span class="nid"></span></h1>
+        <h2 class="h-center">Move data between register to:</h2>
+        <table>
+            <th>
+                <tr><th>Opcode</th><th>Mode</th><th>Description</th></tr>
+                <tr>
+                    <td>0x02</td>
+                    <td>Register</td>
+                    <td>Moves the data between two registers.</td>
+                </tr>
+                <tr>
+                    <td>0x03</td>
+                    <td>Direct Memory Address</td>
+                    <td>Moves the data to/from a memory address.</td>
+                </tr>
+            </th>
+        </table>
+        <hr>
+
+    </main>
+    <script src="embed-ctrl.js"></script>
+</body>
+</html>
