@@ -37,3 +37,4 @@
 # Project Structure
 deps/
 build/
+docs/doxygen/
