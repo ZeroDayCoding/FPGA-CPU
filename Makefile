@@ -35,7 +35,7 @@ SRC_CCFILES:=$(shell find $(DIR_SOURCE) -name '*.c')
 SRC_CPPFILES:=$(shell find $(DIR_SOURCE) -name '*.cpp')
 
 # Target Run CommandLine
-TARGET_RUNTIME_MODE?=release #[debug/release]
+TARGET_RUNTIME_MODE?=debug #[debug/release]
 TARGET_CMDLINE_DEBUG?=
 TARGET_CMDLINE_RELEASE?=
 
@@ -111,13 +111,16 @@ fresh-run: clean run
 
 # Makefile Commands (INTERNAL DON'T CALL USING MAKE)
 $(DIR_BUILD)/$(DIR_BUILD_INFIX)/$(TARGET): $(OBJ_ALL)
+	@$(P_MKDIR) $(dir $@)
 	@$(P_LD) $(LDFLAGS) $^ -o $@
 
 ifneq ($(_DEPS_USEDEPS),true) # Using Poor Man's Dependencies
 $(DIR_BUILD)/$(DIR_BUILD_INFIX)/%.c.obj: $(DIR_SOURCE)/%.c $(DIR_INCLUDE)
+	@$(P_MKDIR) $(dir $@)
 	$(P_CC) $(CCFLAGS) -c $< -o $@
 
 $(DIR_BUILD)/$(DIR_BUILD_INFIX)/%.cpp.obj: $(DIR_SOURCE)/%.cpp $(DIR_INCLUDE)
+	@$(P_MKDIR) $(dir $@)
 	$(P_CPP) $(CPPFLAGS) -c $< -o $@
 else # Using Dependencies
 
@@ -131,12 +134,16 @@ DEPS_POSTCOMPILE= $(P_MV) $(DIR_DEPS)/$(DIR_BUILD_INFIX)/$*.Td $(DIR_DEPS)/$(DIR
 
 $(DIR_BUILD)/$(DIR_BUILD_INFIX)/%.c.obj: $(DIR_SOURCE)/%.c
 $(DIR_BUILD)/$(DIR_BUILD_INFIX)/%.c.obj: $(DIR_SOURCE)/%.c $(DEPS_TARGET)
+	@$(P_MKDIR) $(dir $@)
+	@$(P_MKDIR) $(dir $(DIR_DEPS)/$(DIR_BUILD_INFIX)/$*.Td)
 	$(P_DEPS_CC) $(DEPS_FLAGS) $(CCFLAGS) -c $< -o $@
 	@$(DEPS_POSTCOMPILE)
 
 
 $(DIR_BUILD)/$(DIR_BUILD_INFIX)/%.cpp.obj: $(DIR_SOURCE)/%.cpp
 $(DIR_BUILD)/$(DIR_BUILD_INFIX)/%.cpp.obj: $(DIR_SOURCE)/%.cpp $(DEPS_TARGET)
+	@$(P_MKDIR) $(dir $@)
+	@$(P_MKDIR) $(dir $(DIR_DEPS)/$(DIR_BUILD_INFIX)/$*.Td)
 	$(P_DEPS_CPP) $(DEPS_FLAGS) $(CPPFLAGS) -c $< -o $@
 	@$(DEPS_POSTCOMPILE)
 
